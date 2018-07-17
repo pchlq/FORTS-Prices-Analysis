@@ -7,10 +7,13 @@ library(xts)
 
 
 #Loading put (BR73) & call (BR77) options
-BR73 <- read_excel("C:\\Users\\workgroup_2\\Documents\\FO\\BR73BS8_1Min_14072018.xlsx")
-BR77 <- read_excel("C:\\Users\\workgroup_2\\Documents\\FO\\BR77BG8_1Min_14072018.xlsx")
-
-# Tidy up them
+BR73 <- file.path("data", "BR73BS8_1Min_14072018.xlsx") %>%
+  read_excel()
+  
+BR77 <- file.path("data", "BR77BG8_1Min_14072018.xlsx") %>%
+  read_excel()
+  
+# Tidy them up
 # PUT
 library(stringr)
 BR73$Time <- BR73$Time %>% as.character() %>% 
@@ -84,7 +87,6 @@ names(fut_put) <- c("futures", "put")
 
 fut_call <- cbind(BRf_sorted_call, BR77_sorted_call)
 names(fut_call) <- c("futures", "call")
-head(fut_call)
 
 plot.zoo(fut_put)
 plot.zoo(fut_call)
